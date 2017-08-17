@@ -32,7 +32,8 @@ ASSERT v.name IS UNIQUE;
 //Extract venue nodes from paper nodes
 MATCH (p:paper)
 MERGE (v:venue{name: p.venue})
-CREATE (v)-[:PUBLISHES]->(p);
+CREATE (v)-[:PUBLISHES]->(p)
+SET v.coreRank = "Unranked*";
 
 //Import CORE rankings from CSV
 USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/core.csv" AS csv
